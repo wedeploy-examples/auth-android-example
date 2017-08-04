@@ -12,7 +12,7 @@ import com.wedeploy.android.WeDeploy;
 
 public class BaseActivity extends AppCompatActivity {
 
-	protected static String AUTH_URL = "https://auth-boilerplateauth.wedeploy.sh";
+	protected static String AUTH_URL = "https://auth-boilerplateauth.wedeploy.io";
 
 	protected WeDeploy weDeploy;
 
