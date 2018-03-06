@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 public class Bindings {
 
-	@BindingAdapter({ "font" })
-	public static void font(Button button, String fontName) {
-		Font.setFont(button, fontName);
-	}
+  @BindingAdapter({ "font" })
+  public static void font(Button button, String fontName) {
+    Font.setFont(button, fontName);
+  }
 
-	@BindingAdapter({ "font" })
-	public static void font(TextView textView, String fontName) {
-		Font.setFont(textView, fontName);
-	}
+  @BindingAdapter({ "font" })
+  public static void font(TextView textView, String fontName) {
+    Font.setFont(textView, fontName);
+  }
 }

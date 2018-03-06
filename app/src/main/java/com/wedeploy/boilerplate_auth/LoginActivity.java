@@ -14,92 +14,92 @@ import com.wedeploy.boilerplate_auth.databinding.LoginActivityBinding;
 
 public class LoginActivity extends BaseActivity {
 
-	private LoginActivityBinding binding;
+  private LoginActivityBinding binding;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login_activity);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.login_activity);
 
-		if (getIntent().getData() != null) {
-			parseOAuthToken();
-		}
+    if (getIntent().getData() != null) {
+      parseOAuthToken();
+    }
 
-		binding = DataBindingUtil.setContentView(this, R.layout.login_activity);
+    binding = DataBindingUtil.setContentView(this, R.layout.login_activity);
 
-		binding.goToSignUp.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
-			}
-		});
+    binding.goToSignUp.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+      }
+    });
 
-		binding.goToForgotPassword.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
-			}
-		});
+    binding.goToForgotPassword.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+      }
+    });
 
-		binding.login.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				String email = binding.email.getText().toString();
-				String password = binding.password.getText().toString();
+    binding.login.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String email = binding.email.getText().toString();
+        String password = binding.password.getText().toString();
 
-				if (!email.isEmpty() && !password.isEmpty()) {
-					doLogin(email, password);
-				} else {
-					Toast.makeText(LoginActivity.this, "You have to fill all the fields",
-						Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
+        if (!email.isEmpty() && !password.isEmpty()) {
+          doLogin(email, password);
+        } else {
+          Toast.makeText(LoginActivity.this, "You have to fill all the fields",
+            Toast.LENGTH_SHORT).show();
+        }
+      }
+    });
 
-		binding.googleSignIn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				doOAuthLogin(ProviderAuthorization.Provider.GOOGLE);
-			}
-		});
+    binding.googleSignIn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        doOAuthLogin(ProviderAuthorization.Provider.GOOGLE);
+      }
+    });
 
-		binding.githubSignIn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				doOAuthLogin(ProviderAuthorization.Provider.GITHUB);
-			}
-		});
-	}
+    binding.githubSignIn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        doOAuthLogin(ProviderAuthorization.Provider.GITHUB);
+      }
+    });
+  }
 
-	private void doLogin(String email, String password) {
-		weDeploy.auth(AUTH_URL).signIn(email, password).execute(new Callback() {
-			@Override
-			public void onSuccess(Response response) {
-				showAlert("Success", "Signed in");
-			}
+  private void doLogin(String email, String password) {
+    weDeploy.auth(AUTH_URL).signIn(email, password).execute(new Callback() {
+      @Override
+      public void onSuccess(Response response) {
+        showAlert("Success", "Signed in");
+      }
 
-			@Override
-			public void onFailure(Exception e) {
-				showAlert("Error", "Login error");
-			}
-		});
-	}
+      @Override
+      public void onFailure(Exception e) {
+        showAlert("Error", "Login error");
+      }
+    });
+  }
 
-	private void doOAuthLogin(ProviderAuthorization.Provider provider) {
-		ProviderAuthorization authProvider = new ProviderAuthorization.Builder().redirectUri(
-			"oauth-wedeploy-boilerplate://io.wedeploy.boilerplate-auth")
-			.providerScope("email")
-			.provider(provider)
-			.build();
+  private void doOAuthLogin(ProviderAuthorization.Provider provider) {
+    ProviderAuthorization authProvider = new ProviderAuthorization.Builder().redirectUri(
+      "oauth-wedeploy-boilerplate://io.wedeploy.boilerplate-auth")
+      .providerScope("email")
+      .provider(provider)
+      .build();
 
-		weDeploy.auth(AUTH_URL).signIn(this, authProvider);
-	}
+    weDeploy.auth(AUTH_URL).signIn(this, authProvider);
+  }
 
-	private void parseOAuthToken() {
-		Authorization auth = TokenAuthorization.getAuthorizationFromIntent(getIntent());
+  private void parseOAuthToken() {
+    Authorization auth = TokenAuthorization.getAuthorizationFromIntent(getIntent());
 
-		if (auth != null) {
-			showAlert("Success", "Signed in");
-		}
-	}
+    if (auth != null) {
+      showAlert("Success", "Signed in");
+    }
+  }
 }

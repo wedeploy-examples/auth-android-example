@@ -12,48 +12,48 @@ import com.wedeploy.boilerplate_auth.databinding.ForgotPasswordActivityBinding;
 
 public class ForgotPasswordActivity extends BaseActivity {
 
-	private ForgotPasswordActivityBinding binding;
+  private ForgotPasswordActivityBinding binding;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.forgot_password_activity);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.forgot_password_activity);
 
-		binding = DataBindingUtil.setContentView(this, R.layout.forgot_password_activity);
+    binding = DataBindingUtil.setContentView(this, R.layout.forgot_password_activity);
 
-		binding.goToLogin.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
+    binding.goToLogin.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        finish();
+      }
+    });
 
-		binding.sendEmail.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				String email = binding.email.getText().toString();
+    binding.sendEmail.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String email = binding.email.getText().toString();
 
-				if (!email.isEmpty()) {
-					sendResetPasswordEmail(email);
-				}
-			}
-		});
-	}
+        if (!email.isEmpty()) {
+          sendResetPasswordEmail(email);
+        }
+      }
+    });
+  }
 
-	private void sendResetPasswordEmail(String email) {
-		weDeploy.auth(AUTH_URL)
-			.sendPasswordResetEmail(email)
-			.execute(new Callback() {
-				@Override
-				public void onSuccess(Response response) {
-					showAlert("Success", "Email sent");
-				}
+  private void sendResetPasswordEmail(String email) {
+    weDeploy.auth(AUTH_URL)
+      .sendPasswordResetEmail(email)
+      .execute(new Callback() {
+        @Override
+        public void onSuccess(Response response) {
+          showAlert("Success", "Email sent");
+        }
 
-				@Override
-				public void onFailure(Exception e) {
-					Log.e("", e.toString());
-					showAlert("Error", "Could not send email");
-				}
-			});
-	}
+        @Override
+        public void onFailure(Exception e) {
+          Log.e("", e.toString());
+          showAlert("Error", "Could not send email");
+        }
+      });
+  }
 }

@@ -12,22 +12,22 @@ import com.wedeploy.android.WeDeploy;
 
 public class BaseActivity extends AppCompatActivity {
 
-	protected static String AUTH_URL = "https://auth-boilerplateauth.wedeploy.io";
+  protected static String AUTH_URL = "https://auth-boilerplateauth.wedeploy.io";
 
-	protected WeDeploy weDeploy;
+  protected WeDeploy weDeploy;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-		weDeploy = new WeDeploy.Builder().build();
-	}
+    weDeploy = new WeDeploy.Builder().build();
+  }
 
-	protected void showAlert(String title, String message) {
-		new AlertDialog.Builder(this)
-			.setTitle(title)
-			.setMessage(message)
-			.setPositiveButton(android.R.string.ok, null)
-			.show();
-	}
+  protected void showAlert(String title, String message) {
+    new AlertDialog.Builder(this)
+      .setTitle(title)
+      .setMessage(message)
+      .setPositiveButton(android.R.string.ok, null)
+      .show();
+  }
 }
